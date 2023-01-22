@@ -1,14 +1,23 @@
 import random
 import requests
 import json
-
+from Token import quote_api as qpi
 def jokes():
     f = r"https://official-joke-api.appspot.com/random_joke"
     data = requests.get(f)
     tt = json.loads(data.text)
     jokee = tt['setup'] + '\n\n' + tt['punchline']
     return jokee
-
+def quote():
+    category = 'happiness'
+    api_url = 'https://api.api-ninjas.com/v1/quotes?category={}'.format(category)
+    response = requests.get(api_url, headers={'X-Api-Key': qpi})
+    if response.status_code == requests.codes.ok:
+        result = json.loads(response.text)
+        quoteText = result[0]['quote']
+        quoteAuthor = result[0]['author']
+        full_quote = '"'+quoteText+'"' +"\n\n By : "+quoteAuthor
+        return full_quote
 banned_words = ['chutiya', 'gandu', 'bhenchod', 'madarchod', 'bakchod', 'kamina', 'chodu', 'bhosdike', 'harami', 'lodu',
                 'arse', 'arsehead', 'arsehole', 'ass', 'asshole', 'bastard', 'bitch', 'bloody', 'bollocks',
                 'brotherfucker', 'bugger', 'cock', 'cocksucker', 'cunt', 'dick', 'dickhead', 'frigger', 'fuck',
@@ -45,5 +54,7 @@ def get_responce(message: str) -> str:
     random_message_index = random.randrange(len(random_list))
     if p_message == '$joke':
         return jokes()
+    if p_message == '$quote':
+        return quote()
     elif p_message[0] == '$':
         return random_list[random_message_index]
