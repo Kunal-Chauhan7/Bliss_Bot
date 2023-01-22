@@ -28,7 +28,7 @@ def get_responce(message: str) -> str:
     p_message = message.lower()
     for word in banned_words:
         if word in p_message:
-            return "Bruhh Keep it simple dont abuse here"
+            return "Abuse"
     if p_message == '$hello':
         return 'Hey Hey!!'
     if p_message == 'roll':

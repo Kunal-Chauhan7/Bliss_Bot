@@ -2,10 +2,15 @@ import discord
 import Responces
 import Token
 
-async def send_message(message, user_message, is_private):
+async def send_message(message, user_message):
     try:
         responce = Responces.get_responce(user_message)
-        await message.author.send(responce) if is_private else await message.channel.send(responce)
+        if responce == "Abuse":
+            await message.delete()
+            await message.channel.send(f"{message.author.mention} Please Don't Abuse here")
+            await message.author.send("Keep your temper cool relax Don't abuse it's not good")
+        else:
+            await message.channel.send(responce)
 
     except Exception as e:
         print(e)
@@ -30,7 +35,7 @@ def run_discord_bot():
 
         print(f'{username} said the following "{user_message}" on ({channel})')
 
-        await send_message(message,user_message,is_private=False)
+        await send_message(message,user_message)
 
 
     client.run(TOKEN)
