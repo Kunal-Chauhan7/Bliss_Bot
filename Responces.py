@@ -15,8 +15,16 @@ def quote(category = 'happiness'):
         result = json.loads(response.text)
         quoteText = result[0]['quote']
         quoteAuthor = result[0]['author']
-        full_quote = '"'+quoteText+'"' +"\n\n By : "+quoteAuthor
+
+        full_quote = f'Here is a Quote on {category}\n\n"{quoteText}"\nBy : {quoteAuthor}'
         return full_quote
+def weather(city = 'New Delhi'):
+    api_url = 'https://api.api-ninjas.com/v1/weather?city={}'.format(city)
+    response = requests.get(api_url, headers={'X-Api-Key': qpi})
+    if response.status_code == requests.codes.ok:
+        result = json.loads(response.text)
+        weather = f"Place : {city}\nTemp : {result['temp']}\nHumidity : {result['humidity']}\nMin Temp : {result['min_temp']}\nMax Temp : {result['max_temp']}\nWind Speed : {result['wind_speed']}"
+        return weather
 banned_words = ['chutiya', 'gandu', 'bhenchod', 'madarchod', 'bakchod', 'kamina', 'chodu', 'bhosdike', 'harami', 'lodu',
                 'arse', 'arsehead', 'arsehole', 'ass', 'asshole', 'bastard', 'bitch', 'bloody', 'bollocks',
                 'brotherfucker', 'bugger', 'cock', 'cocksucker', 'cunt', 'dick', 'dickhead', 'frigger', 'fuck',
@@ -55,5 +63,7 @@ def get_responce(message: str) -> str:
         return jokes()
     if p_message[0:6] == '$quote':
         return quote(p_message[7:])
+    if p_message[0:8] == '$weather':
+        return weather(p_message[8:])
     elif p_message[0] == '$':
         return random_list[random_message_index]
