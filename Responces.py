@@ -8,8 +8,7 @@ def jokes():
     tt = json.loads(data.text)
     jokee = tt['setup'] + '\n\n' + tt['punchline']
     return jokee
-def quote():
-    category = 'happiness'
+def quote(category = 'happiness'):
     api_url = 'https://api.api-ninjas.com/v1/quotes?category={}'.format(category)
     response = requests.get(api_url, headers={'X-Api-Key': qpi})
     if response.status_code == requests.codes.ok:
@@ -54,7 +53,7 @@ def get_responce(message: str) -> str:
     random_message_index = random.randrange(len(random_list))
     if p_message == '$joke':
         return jokes()
-    if p_message == '$quote':
-        return quote()
+    if p_message[0:6] == '$quote':
+        return quote(p_message[7:])
     elif p_message[0] == '$':
         return random_list[random_message_index]
