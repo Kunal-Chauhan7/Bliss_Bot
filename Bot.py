@@ -1,6 +1,9 @@
 import discord
 import Responces
 import Token
+from discord.ext import commands
+from discord import file
+
 
 async def send_message(message, user_message):
     try:
@@ -15,11 +18,12 @@ async def send_message(message, user_message):
     except Exception as e:
         print(e)
 
+
 def run_discord_bot():
     TOKEN = Token.Token
     intents = discord.Intents.default()
     intents.message_content = True
-    client = discord.Client(intents=intents)
+    client = commands.Bot(command_prefix='$', intents=intents)
 
     @client.event
     async def on_ready():
@@ -35,7 +39,6 @@ def run_discord_bot():
 
         print(f'{username} said the following "{user_message}" on ({channel})')
 
-        await send_message(message,user_message)
-
+        await send_message(message, user_message)
 
     client.run(TOKEN)

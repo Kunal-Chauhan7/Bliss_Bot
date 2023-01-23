@@ -2,6 +2,9 @@ import random
 import requests
 import json
 from Token import quote_api as qpi
+import anime_images_api
+anime = anime_images_api.Anime_Images()
+
 def jokes():
     f = r"https://official-joke-api.appspot.com/random_joke"
     data = requests.get(f)
@@ -31,6 +34,8 @@ banned_words = ['chutiya', 'gandu', 'bhenchod', 'madarchod', 'bakchod', 'kamina'
                 'motherfucker', 'nigga', 'prick', 'pussy', 'slut', 'son of a bitch', 'son of a whore', 'wanker']
 
 head_tails = ["head", "Tails", ]
+anime_command = ['$hug','$kiss','$slap','$wink','$kill','$pat','$cuddle']
+anime_command_nsfw = ['$boobs','$hentai']
 random_list = [
     "Please try writing something more descriptive.",
     "Oh! It appears you wrote something I don't understand yet",
@@ -45,9 +50,18 @@ def get_responce(message: str) -> str:
     for word in banned_words:
         if word in p_message:
             return "Abuse"
+    for animes in anime_command:
+        if animes in p_message:
+            res = anime.get_sfw(animes[1:])
+            return res
+    for nsfw_animes in anime_command_nsfw:
+        if nsfw_animes in p_message:
+            res = anime.get_nsfw(nsfw_animes[1:])
+            return res
+
     if p_message == '$hello':
         return 'Hey Hey!!'
-    if p_message == 'roll':
+    if p_message == '$roll':
         return str(random.randint(1, 6))
     if p_message == '$help':
         return '`this will be the help message`'
@@ -65,5 +79,7 @@ def get_responce(message: str) -> str:
         return quote(p_message[7:])
     if p_message[0:8] == '$weather':
         return weather(p_message[8:])
+    if p_message == '$ping':
+        return 'pong'
     elif p_message[0] == '$':
         return random_list[random_message_index]
