@@ -2,7 +2,6 @@ import discord
 import Responces
 import Token
 from discord.ext import commands
-from discord import file
 
 
 async def send_message(message, user_message):
