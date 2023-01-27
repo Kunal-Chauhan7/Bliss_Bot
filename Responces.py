@@ -81,5 +81,9 @@ def get_responce(message: str) -> str:
         return weather(p_message[8:])
     if p_message == '$ping':
         return 'pong'
+    if p_message.startswith('$waifu'):
+        return p_message
+    if p_message.startswith('$nsfw'):
+        return p_message
     elif p_message[0] == '$':
         return random_list[random_message_index]
