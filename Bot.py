@@ -3,6 +3,7 @@ import Responces
 import Token
 from discord.ext import commands
 from waifu import WaifuClient
+
 waifu = WaifuClient()
 
 
@@ -18,14 +19,14 @@ async def send_message(message, user_message):
                 category = 'waifu'
             else:
                 category = responce.split()[1]
-            waifu_pic:str = waifu.sfw(category=category)
+            waifu_pic: str = waifu.sfw(category=category)
             await message.channel.send(waifu_pic)
         if responce.startswith("$nsfw"):
             if responce.endswith('w' or ' '):
                 category = 'waifu'
             else:
                 category = responce.split()[1]
-            waifu_pic:str = waifu.nsfw(category=category)
+            waifu_pic: str = waifu.nsfw(category=category)
             await message.channel.send(waifu_pic)
         else:
             await message.channel.send(responce)
@@ -51,9 +52,7 @@ def run_discord_bot():
         username = str(message.author)
         user_message = str(message.content)
         channel = str(message.channel)
-
         print(f'{username} said the following "{user_message}" on ({channel})')
-
         await send_message(message, user_message)
 
     client.run(TOKEN)
