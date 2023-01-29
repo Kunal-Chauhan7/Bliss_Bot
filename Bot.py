@@ -28,6 +28,8 @@ async def send_message(message, user_message):
                 category = responce.split()[1]
             waifu_pic: str = waifu.nsfw(category=category)
             await message.channel.send(waifu_pic)
+        if responce.startswith('$kitty'):
+                await message.channel.send('https://cataas.com/cat')
         else:
             await message.channel.send(responce)
 

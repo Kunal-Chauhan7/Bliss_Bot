@@ -85,5 +85,7 @@ def get_responce(message: str) -> str:
         return p_message
     if p_message.startswith('$nsfw'):
         return p_message
+    if p_message.startswith('$kitty'):
+        return p_message
     elif p_message[0] == '$':
         return random_list[random_message_index]
