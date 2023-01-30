@@ -92,5 +92,7 @@ def get_responce(message: str) -> str:
         return p_message
     if p_message.startswith('$ping'):
         return p_message
+    if p_message.startswith('$msg'):
+        return p_message
     elif p_message[0] == '$':
         return random_list[random_message_index]
