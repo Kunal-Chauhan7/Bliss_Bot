@@ -114,5 +114,25 @@ def get_responce(message: str) -> str:
         return p_message
     if p_message.startswith('$msg'):
         return p_message
+    if p_message.startswith('$randomanimequote'):
+        urls = 'https://animechan.vercel.app/api/random'
+        req = requests.get(url=urls)
+        out = req.json()
+        result = f"Anime name : **{out['anime']}**\nCharacter : _{out['character']}_\nQuote : `{out['quote']}`"
+        return result
+    if p_message.startswith('$animequote'):
+        title = p_message.split()[1]
+        urls = f"https://animechan.vercel.app/api/random/anime?title={title}"
+        req = requests.get(url=urls)
+        out = req.json()
+        result = f"Anime name : **{out['anime']}**\nCharacter : _{out['character']}_\nQuote : `{out['quote']}`"
+        return result
+    if p_message.endswith('$animequote'):
+        name = p_message.split()[0]
+        urls = f"https://animechan.vercel.app/api/random/character?name={name}"
+        req = requests.get(url=urls)
+        out = req.json()
+        result = f"Anime name : **{out['anime']}**\nCharacter : _{out['character']}_\nQuote : `{out['quote']}`"
+        return result
     elif p_message[0] == '$':
         return random_list[random_message_index]
