@@ -3,18 +3,26 @@ import requests
 import json
 from Token import quote_api as qpi
 import anime_images_api
+
 anime = anime_images_api.Anime_Images()
-anime_command_list = ['baka', 'bite', 'blush', 'bored', 'cry', 'cuddle', 'dance', 'facepalm', 'feed', 'handhold',
-                      'happy', 'highfive', 'hug', 'kick','kiss', 'laugh', 'nod', 'nom', 'nope', 'pat', 'poke'
-    , 'pout', 'punch', 'shoot', 'shrug', 'slap', 'sleep', 'smile', 'smug', 'stare', 'think', 'thumbsup', 'tickle',
-                      'wave', 'wink', 'yeet','husbando', 'kitsune', 'neko', 'waifu']
+
+anime_commands = ['cuddle', 'feed', 'handhold', 'highfive', 'hug', 'kick', 'kiss', 'poke', 'punch',
+                  'shoot', 'bite', 'tickle', 'wave', 'wink', 'yeet', 'slap', 'pat', 'stare']
+anime_command_list = ['baka', 'blush', 'bored', 'cry', 'dance', 'facepalm',
+                      'happy', 'highfive', 'laugh', 'nod', 'nom', 'nope',
+                      'pout', 'shrug', 'sleep', 'smile', 'smug', 'think',
+                      'thumbsup', 'husbando', 'kitsune', 'neko', 'waifu']
+
+
 def jokes():
     f = r"https://official-joke-api.appspot.com/random_joke"
     data = requests.get(f)
     tt = json.loads(data.text)
     jokee = tt['setup'] + '\n\n' + tt['punchline']
     return jokee
-def quote(category = 'happiness'):
+
+
+def quote(category='happiness'):
     api_url = 'https://api.api-ninjas.com/v1/quotes?category={}'.format(category)
     response = requests.get(api_url, headers={'X-Api-Key': qpi})
     if response.status_code == requests.codes.ok:
@@ -24,21 +32,25 @@ def quote(category = 'happiness'):
 
         full_quote = f'Here is a Quote on {category}\n\n"{quoteText}"\nBy : {quoteAuthor}'
         return full_quote
-def weather(city = 'New Delhi'):
+
+
+def weather(city='New Delhi'):
     api_url = 'https://api.api-ninjas.com/v1/weather?city={}'.format(city)
     response = requests.get(api_url, headers={'X-Api-Key': qpi})
     if response.status_code == requests.codes.ok:
         result = json.loads(response.text)
         weather = f"Place : {city}\nTemp : {result['temp']}\nHumidity : {result['humidity']}\nMin Temp : {result['min_temp']}\nMax Temp : {result['max_temp']}\nWind Speed : {result['wind_speed']}"
         return weather
+
+
 banned_words = ['chutiya', 'gandu', 'bhenchod', 'madarchod', 'bakchod', 'kamina', 'chodu', 'bhosdike', 'harami', 'lodu',
                 'arse', 'arsehead', 'arsehole', 'ass', 'asshole', 'bastard', 'bitch', 'bloody', 'bollocks',
                 'brotherfucker', 'bugger', 'cock', 'cocksucker', 'cunt', 'dick', 'dickhead', 'frigger', 'fuck',
                 'motherfucker', 'nigga', 'prick', 'pussy', 'slut', 'son of a bitch', 'son of a whore', 'wanker']
 
 head_tails = ["head", "Tails", ]
-anime_command = ['$hug','$kiss','$slap','$wink','$kill','$pat','$cuddle']
-anime_command_nsfw = ['$boobs','$hentai']
+anime_command = ['$hug', '$kiss', '$slap', '$wink', '$kill', '$pat', '$cuddle']
+anime_command_nsfw = ['$boobs', '$hentai']
 random_list = [
     "Please try writing something more descriptive.",
     "Oh! It appears you wrote something I don't understand yet",
@@ -53,6 +65,14 @@ def get_responce(message: str) -> str:
     for word in banned_words:
         if word in p_message:
             return "Abuse"
+    for i in anime_commands:
+        if i in p_message:
+            return p_message
+    for i in anime_command_list:
+        if i in p_message:
+            resp = requests.get(f"https://nekos.best/api/v2/{i}")
+            data = resp.json()
+            return (data["results"][0]["url"])
     for animes in anime_command:
         if animes in p_message:
             res = anime.get_sfw(animes[1:])

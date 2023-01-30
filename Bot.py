@@ -3,9 +3,15 @@ import Responces
 import Token
 from discord.ext import commands
 from waifu import WaifuClient
+import requests
+
+#nsfw = waifu neko trap blowjob
+#sfw = waifu neko shinobu megumin bully cuddle cry hug awoo kiss lick pat smug bonk yeet blush smile wave highfive
+# handhold nom bite glomp slap kill kick happy wink poke dance cringe
+anime_commands = ['cuddle', 'feed', 'handhold', 'highfive', 'hug', 'kick','kiss' ,'poke', 'punch',
+                  'shoot', 'bite', 'tickle','wave', 'wink', 'yeet', 'slap', 'pat', 'stare']
 
 waifu = WaifuClient()
-
 
 def run_discord_bot():
     TOKEN = Token.Token
@@ -24,6 +30,12 @@ def run_discord_bot():
                 await message.delete()
                 await message.channel.send(f"{message.author.mention} Please Don't Abuse here")
                 await message.author.send("Keep your temper cool relax Don't abuse it's not good")
+            for i in anime_commands:
+                if i in responce:
+                    resp = requests.get(f"https://nekos.best/api/v2/{i}")
+                    data = resp.json()
+                    await message.channel.send(data["results"][0]["url"])
+                    await message.channel.send(f"{message.author.mention} {i} on {responce.split()[1]}")
             if responce.startswith("$waifu"):
                 if responce.endswith('u' or ' '):
                     category = 'waifu'
