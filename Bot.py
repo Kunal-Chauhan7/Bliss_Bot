@@ -49,7 +49,7 @@ def run_discord_bot():
                 raw_msg = responce.split()[2:]
                 msg = " "
                 msg = msg.join(raw_msg)
-                await dm_user.send(msg)
+                await dm_user.send(f'*{message.author.name}*  said  `{msg}` on **{message.channel.name}** to you')
             else:
                 await message.channel.send(responce)
 
