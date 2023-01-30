@@ -4,7 +4,10 @@ import json
 from Token import quote_api as qpi
 import anime_images_api
 anime = anime_images_api.Anime_Images()
-
+anime_command_list = ['baka', 'bite', 'blush', 'bored', 'cry', 'cuddle', 'dance', 'facepalm', 'feed', 'handhold',
+                      'happy', 'highfive', 'hug', 'kick','kiss', 'laugh', 'nod', 'nom', 'nope', 'pat', 'poke'
+    , 'pout', 'punch', 'shoot', 'shrug', 'slap', 'sleep', 'smile', 'smug', 'stare', 'think', 'thumbsup', 'tickle',
+                      'wave', 'wink', 'yeet','husbando', 'kitsune', 'neko', 'waifu']
 def jokes():
     f = r"https://official-joke-api.appspot.com/random_joke"
     data = requests.get(f)
@@ -86,6 +89,8 @@ def get_responce(message: str) -> str:
     if p_message.startswith('$nsfw'):
         return p_message
     if p_message.startswith('$kitty'):
+        return p_message
+    if p_message.startswith('$ping'):
         return p_message
     elif p_message[0] == '$':
         return random_list[random_message_index]

@@ -30,6 +30,8 @@ async def send_message(message, user_message):
             await message.channel.send(waifu_pic)
         if responce.startswith('$kitty'):
                 await message.channel.send('https://cataas.com/cat')
+        if responce.startswith('$ping'):
+                await message.channel.send(f'@everyone {responce[6:]}')
         else:
             await message.channel.send(responce)
 
