@@ -41,7 +41,13 @@ def weather(city='New Delhi'):
         result = json.loads(response.text)
         weather = f"Place : {city}\nTemp : {result['temp']}\nHumidity : {result['humidity']}\nMin Temp : {result['min_temp']}\nMax Temp : {result['max_temp']}\nWind Speed : {result['wind_speed']}"
         return weather
-
+def fact():
+    limit = 1
+    api_url = 'https://api.api-ninjas.com/v1/facts?limit={}'.format(limit)
+    response = requests.get(api_url, headers={'X-Api-Key': qpi})
+    result = response.json()[0]['fact']
+    result = f'`{result}`'
+    return result
 
 banned_words = ['chutiya', 'gandu', 'bhenchod', 'madarchod', 'bakchod', 'kamina', 'chodu', 'bhosdike', 'harami', 'lodu',
                 'arse', 'arsehead', 'arsehole', 'ass', 'asshole', 'bastard', 'bitch', 'bloody', 'bollocks',
@@ -81,7 +87,6 @@ def get_responce(message: str) -> str:
         if nsfw_animes in p_message:
             res = anime.get_nsfw(nsfw_animes[1:])
             return res
-
     if p_message == '$hello':
         return 'Hey Hey!!'
     if p_message == '$roll':
@@ -98,6 +103,8 @@ def get_responce(message: str) -> str:
     random_message_index = random.randrange(len(random_list))
     if p_message == '$joke':
         return jokes()
+    if p_message.startswith('$fact'):
+        return fact()
     if p_message[0:6] == '$quote':
         return quote(p_message[7:])
     if p_message[0:8] == '$weather':
