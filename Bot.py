@@ -70,12 +70,13 @@ def run_discord_bot():
 
     @client.event
     async def on_message(message):
-        if message.author == client.user:
-            return
-        username = str(message.author)
-        user_message = str(message.content)
-        channel = str(message.channel)
-        print(f'{username} said the following "{user_message}" on ({channel})')
-        await send_message(message, user_message)
+        if message.content.startswith('$'):
+            if message.author == client.user:
+                return
+            username = str(message.author)
+            user_message = str(message.content)
+            channel = str(message.channel)
+            print(f'{username} said the following "{user_message}" on ({channel})')
+            await send_message(message, user_message)
 
     client.run(TOKEN)

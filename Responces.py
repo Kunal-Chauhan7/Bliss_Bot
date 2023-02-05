@@ -87,6 +87,11 @@ def get_responce(message: str) -> str:
         if nsfw_animes in p_message:
             res = anime.get_nsfw(nsfw_animes[1:])
             return res
+    if p_message == '$geekjoke':
+        req = requests.get('https://geek-jokes.sameerkumar.website/api?format=json')
+        result = req.json()
+        joke = (f"`{result['joke']}`")
+        return joke
     if p_message == '$hello':
         return 'Hey Hey!!'
     if p_message == '$roll':
