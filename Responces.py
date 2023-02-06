@@ -94,8 +94,8 @@ def get_responce(message: str) -> str:
         raw_input = p_message.split()[2]
         des = p_message.split()[1]
         raw_translated_text = translator.translate(raw_input,dest=des)
-        translated_text = raw_translated_text.text
-        return translated_text
+        result = f'**Detected Lang : {raw_translated_text.src}**\n_translation_:`{raw_translated_text.text}`'
+        return result
     if p_message == '$geekjoke':
         req = requests.get('https://geek-jokes.sameerkumar.website/api?format=json')
         result = req.json()
