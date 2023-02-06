@@ -2,6 +2,9 @@ import random
 import requests
 import json
 from Token import quote_api as qpi
+from googletrans import Translator
+translator = Translator()
+
 import anime_images_api
 
 anime = anime_images_api.Anime_Images()
@@ -87,6 +90,8 @@ def get_responce(message: str) -> str:
         if nsfw_animes in p_message:
             res = anime.get_nsfw(nsfw_animes[1:])
             return res
+    if p_message.startswith('$tt'):
+
     if p_message == '$geekjoke':
         req = requests.get('https://geek-jokes.sameerkumar.website/api?format=json')
         result = req.json()
