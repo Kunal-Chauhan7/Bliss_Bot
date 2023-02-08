@@ -6,16 +6,20 @@ from waifu import WaifuClient
 import requests
 import random
 
-#nsfw = waifu neko trap blowjob
-#sfw = waifu neko shinobu megumin bully cuddle cry hug awoo kiss lick pat smug bonk yeet blush smile wave highfive
+# nsfw = waifu neko trap blowjob
+# sfw = waifu neko shinobu megumin bully cuddle cry hug awoo kiss lick pat smug bonk yeet blush smile wave highfive
 # handhold nom bite glomp slap kill kick happy wink poke dance cringe
-anime_commands = ['cuddle', 'feed', 'handhold', 'highfive', 'hug', 'kick','kiss' ,'poke', 'punch',
-                  'shoot', 'bite', 'tickle','wave', 'wink', 'yeet', 'slap', 'pat', 'stare']
+anime_commands = ['cuddle', 'feed', 'handhold', 'highfive', 'hug', 'kick', 'kiss', 'poke', 'punch',
+                  'shoot', 'bite', 'tickle', 'wave', 'wink', 'yeet', 'slap', 'pat', 'stare']
 
 waifu = WaifuClient()
+
+
 def love_calc():
     love = random.randrange(100)
     return love
+
+
 def run_discord_bot():
     TOKEN = Token.Token
     intents = discord.Intents.default()
@@ -42,16 +46,24 @@ def run_discord_bot():
             if responce.startswith('$ship'):
                 love = love_calc()
                 if len(responce.split()) == 2:
-                    #for single user
                     target = responce.split()[1]
-                    love_message = f'@{message.author.name} and are {target} are {love}% matched'
+                    love_message = f'{message.author.mention} and are {target} are {love}% matched'
                     await message.channel.send(love_message)
                 else:
                     target1 = responce.split()[1]
                     target2 = responce.split()[2]
                     love_message = f'{target1} and are {target2} are {love}% matched'
                     await message.channel.send(love_message)
-                # if(love > 0 and love < 20):
+                if (love >= 0 and love < 20):
+                    await message.channel.send('something motivating from 0 to 20')
+                elif (love >= 20 and love < 40):
+                    await message.channel.send('something motivating from 20 to 40')
+                elif (love >= 40 and love < 60):
+                    await message.channel.send('something motivating from 40 to 60')
+                elif (love >= 60 and love < 80):
+                    await message.channel.send('something motivating from 60 to 80')
+                elif (love >= 80 and love <= 100):
+                    await message.channel.send('something motivating from 80 to 100')
             if responce.startswith("$waifu"):
                 if responce.endswith('u' or ' '):
                     category = 'waifu'
@@ -72,7 +84,7 @@ def run_discord_bot():
                 await message.channel.send(f'@everyone {responce[6:]}')
             if responce.startswith('$msg'):
                 raw_target = responce.split()[1][2:]
-                target_user = raw_target[:len(raw_target)-1]
+                target_user = raw_target[:len(raw_target) - 1]
                 dm_user = await client.fetch_user(target_user)
                 raw_msg = responce.split()[2:]
                 msg = " "
