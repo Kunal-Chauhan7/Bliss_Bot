@@ -41,7 +41,14 @@ def run_discord_bot():
                     await message.channel.send(f"{message.author.mention} {i} on {responce.split()[1]}")
             if responce.startswith('$ship'):
                 love = love_calc()
-                await message.channel.send(love)
+                if len(responce.split()) == 2:
+                    #for single user
+                    target = responce.split()[1]
+                    love_message = f'@{message.author.name} and are {target} are {love}% matched'
+                    await message.channel.send(love_message)
+                # else:
+                    #for multiple user
+                # if(love > 0 and love < 20):
             if responce.startswith("$waifu"):
                 if responce.endswith('u' or ' '):
                     category = 'waifu'
