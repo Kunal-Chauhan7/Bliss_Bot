@@ -4,6 +4,7 @@ import Token
 from discord.ext import commands
 from waifu import WaifuClient
 import requests
+import random
 
 #nsfw = waifu neko trap blowjob
 #sfw = waifu neko shinobu megumin bully cuddle cry hug awoo kiss lick pat smug bonk yeet blush smile wave highfive
@@ -12,7 +13,9 @@ anime_commands = ['cuddle', 'feed', 'handhold', 'highfive', 'hug', 'kick','kiss'
                   'shoot', 'bite', 'tickle','wave', 'wink', 'yeet', 'slap', 'pat', 'stare']
 
 waifu = WaifuClient()
-
+def love_calc():
+    love = random.randrange(100)
+    return love
 def run_discord_bot():
     TOKEN = Token.Token
     intents = discord.Intents.default()
@@ -36,6 +39,9 @@ def run_discord_bot():
                     data = resp.json()
                     await message.channel.send(data["results"][0]["url"])
                     await message.channel.send(f"{message.author.mention} {i} on {responce.split()[1]}")
+            if responce.startswith('$ship'):
+                love = love_calc()
+                await message.channel.send(love)
             if responce.startswith("$waifu"):
                 if responce.endswith('u' or ' '):
                     category = 'waifu'

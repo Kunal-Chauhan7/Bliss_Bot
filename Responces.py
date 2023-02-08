@@ -90,6 +90,8 @@ def get_responce(message: str) -> str:
         if nsfw_animes in p_message:
             res = anime.get_nsfw(nsfw_animes[1:])
             return res
+    if p_message.startswith('$ship'):
+        return p_message
     if p_message.startswith('$tt'):
         raw_input = p_message.split()[2]
         des = p_message.split()[1]
