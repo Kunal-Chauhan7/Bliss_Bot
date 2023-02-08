@@ -46,8 +46,11 @@ def run_discord_bot():
                     target = responce.split()[1]
                     love_message = f'@{message.author.name} and are {target} are {love}% matched'
                     await message.channel.send(love_message)
-                # else:
-                    #for multiple user
+                else:
+                    target1 = responce.split()[1]
+                    target2 = responce.split()[2]
+                    love_message = f'{target1} and are {target2} are {love}% matched'
+                    await message.channel.send(love_message)
                 # if(love > 0 and love < 20):
             if responce.startswith("$waifu"):
                 if responce.endswith('u' or ' '):
